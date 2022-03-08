@@ -1,6 +1,6 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const Discord = require("discord.js"); //start
-const config = require("./config.json");
+const config = require("./env.json");
 
 const bot = new Discord.Client({
     intents: [
