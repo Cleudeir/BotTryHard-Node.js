@@ -50,8 +50,7 @@ const Bot = async () =>{
         const [playerData] = dataRanking.filter(x=> +x.account_id === +info)
         console.log(playerData)
         const img = await message.channel.send({files:[playerData.avatarfull]});      
-        const m = await message.channel.send("Ranking...");
-        const loss =
+        const m = await message.channel.send("Ranking...");   
         m.edit(
         `Aqui esta  ${playerData.personaname}:
         ➡️ Position: ${playerData.id} de ${dataRanking.length}
@@ -65,6 +64,8 @@ const Bot = async () =>{
         Hero healing = ${playerData.hero_healing.toLocaleString('pt-BR')}   
         Win/Loss = ${playerData.win}/${ +playerData.matches - +playerData.win}
         Win rate = ${playerData.winRate}%
+
+        veja o ranking completo: https://dota-try-hard.vercel.app/${playerData.account_id}
         `)        
     }else{
         const m = await message.channel.send("Desculpe! DataBase esta offline");
