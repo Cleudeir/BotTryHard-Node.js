@@ -3,7 +3,6 @@ const fetch = (...args) => import('node-fetch')
 const Discord = require('discord.js'); // start
 require('dotenv').config();
 
-console.log(process.env.token);
 const config = {
   token: process.env.TOKEN,
   prefix: process.env.PREFIX,
