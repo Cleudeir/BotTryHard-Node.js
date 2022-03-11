@@ -26,9 +26,8 @@ const Bot = async () => {
     const { data } = await fetch('https://dota-try-hard.vercel.app/api/bot')
       .then((resp) => resp.json())
       .then((resp) => resp)
-      .catch((err) => err.message);
+      .catch(() => []);
     dataRanking = data;
-    console.log(dataRanking ? dataRanking.length : 'Error');
     return data;
   }
   pull();
