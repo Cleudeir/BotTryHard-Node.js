@@ -60,7 +60,7 @@ const Bot = async () => {
         console.log(playerData);
         if (playerData) {
           console.log(playerData);
-          await message.channel.send({ files: [playerData.avatarfull] });
+          await message.channel.send({ files: [`${playerData.avatarfull}_medium.jpg`] });
           const m = await message.channel.send('Ranking...');
           m.edit(
             `Aqui esta  ${playerData.personaname}:
