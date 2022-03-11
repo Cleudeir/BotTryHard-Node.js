@@ -1,7 +1,13 @@
 const fetch = (...args) => import('node-fetch')
   .then(({ default: fetch }) => fetch(...args));
 const Discord = require('discord.js'); // start
-const config = require('./env.json');
+require('dotenv').config();
+
+console.log(process.env.token);
+const config = {
+  token: process.env.TOKEN,
+  prefix: process.env.PREFIX,
+};
 
 const bot = new Discord.Client({
   intents: [
