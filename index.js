@@ -41,35 +41,44 @@ const Bot = async () => {
     if (comando === 'ping' || comando === 'p') {
       const m = await message.channel.send('Ping?');
       m.edit(`Ping! A Latência é ${m.createdTimestamp - message.createdTimestamp}ms.`);
-    }
-    if (comando === 'r') {
+    } else if (comando === 'help' || comando === '?') {
+      const m = await message.channel.send('help?');
+      m.edit(`\n
+      Commands:
+      !p => Verifica seu ping
+      !r=account_id => Verifica seu ranked e seu status médio
+      !help => Mostra os comandos disponíveis
+     
+      `);
+    } else if (comando === 'r') {
       if (dataRanking) {
         const [playerData] = dataRanking.filter((x) => +x.account_id === +info);
-        if (playerData && playerData.length > 0) {
+        console.log(playerData);
+        if (playerData) {
           console.log(playerData);
           await message.channel.send({ files: [playerData.avatarfull] });
           const m = await message.channel.send('Ranking...');
           m.edit(
             `Aqui esta  ${playerData.personaname}:
-            ➡️ Position: ${playerData.id} de ${dataRanking.length}
-            Rating : ${playerData.ranking.toLocaleString('pt-BR')}  
-            Kill/Deaths/Assists = ${playerData.kills}/${playerData.deaths}/${playerData.assists}
-            Last/Denies = ${playerData.last_hits}/${playerData.denies}
-            GPM = ${playerData.gold_per_min.toLocaleString('pt-BR')}
-            XPM = ${playerData.xp_per_min.toLocaleString('pt-BR')}
-            Hero damage = ${playerData.hero_damage.toLocaleString('pt-BR')}
-            Tower damage = ${playerData.tower_damage.toLocaleString('pt-BR')}
-            Hero healing = ${playerData.hero_healing.toLocaleString('pt-BR')}   
-            Win/Loss = ${playerData.win}/${+playerData.matches - +playerData.win}
-            Win rate = ${playerData.winRate}%
+          ➡️ Position: ${playerData.id} de ${dataRanking.length}
+          Rating : ${playerData.ranking.toLocaleString('pt-BR')}  
+          Kill/Deaths/Assists = ${playerData.kills}/${playerData.deaths}/${playerData.assists}
+          Last/Denies = ${playerData.last_hits}/${playerData.denies}
+          GPM = ${playerData.gold_per_min.toLocaleString('pt-BR')}
+          XPM = ${playerData.xp_per_min.toLocaleString('pt-BR')}
+          Hero damage = ${playerData.hero_damage.toLocaleString('pt-BR')}
+          Tower damage = ${playerData.tower_damage.toLocaleString('pt-BR')}
+          Hero healing = ${playerData.hero_healing.toLocaleString('pt-BR')}   
+          Win/Loss = ${playerData.win}/${+playerData.matches - +playerData.win}
+          Win rate = ${playerData.winRate}%
 
-            veja o ranking completo: https://dota-try-hard.vercel.app/${playerData.account_id}
-            `,
+          veja o ranking completo: https://dota-try-hard.vercel.app/${playerData.account_id}
+          `,
           );
         } else {
           await message.channel.send(`
-            Infelizmente você não esta no ranking
-            busque no site: https://dota-try-hard.vercel.app/`);
+          Infelizmente você não esta no ranking
+          busque no site: https://dota-try-hard.vercel.app/`);
         }
       } else {
         await message.channel.send('Desculpe! DataBase esta offline');
