@@ -31,7 +31,7 @@ const Bot = async () => {
     return data;
   }
   pull();
-  setInterval(pull, 10 * 60 * 1000);
+  setInterval(pull, 20 * 60 * 1000);
 
   bot.on('message', async (message) => {
     if (message.author.bot) return;
@@ -90,6 +90,7 @@ const Bot = async () => {
         }
       } else {
         await message.channel.send('Desculpe! DataBase esta offline');
+        pull();
       }
     }
   });
