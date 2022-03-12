@@ -31,7 +31,7 @@ const Bot = async () => {
     return data;
   }
   pull();
-  setInterval(pull, 60 * 60 * 1000);
+  setInterval(pull, 10 * 60 * 1000);
 
   bot.on('message', async (message) => {
     if (message.author.bot) return;
@@ -60,7 +60,11 @@ const Bot = async () => {
         console.log(playerData);
         if (playerData) {
           console.log(playerData);
-          await message.channel.send({ files: [`${playerData.avatarfull}_medium.jpg`] });
+          await message.channel.send({
+            files: [`
+          ${playerData.avatarfull.splice(0, playerData.avatarfull.length - 4)}_medium.jpg
+          `],
+          });
           const m = await message.channel.send('Ranking...');
           m.edit(
             `Aqui esta  ${playerData.personaname}:
