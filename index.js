@@ -57,13 +57,11 @@ const Bot = async () => {
     } else if (comando === 'r') {
       if (dataRanking) {
         const [playerData] = dataRanking.filter((x) => +x.account_id === +info);
-        console.log(playerData);
+
         if (playerData) {
-          console.log(playerData);
+          const img = `${playerData.avatarfull.slice(0, playerData.avatarfull.length - 9)}_medium.jpg`;
           await message.channel.send({
-            files: [`
-          ${playerData.avatarfull.splice(0, playerData.avatarfull.length - 4)}_medium.jpg
-          `],
+            files: [img],
           });
           const m = await message.channel.send('Ranking...');
           m.edit(
