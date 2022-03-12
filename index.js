@@ -51,8 +51,7 @@ const Bot = async () => {
       Commands:
       !p => Verifica seu ping
       !r=account_id => Verifica seu ranked e seu status médio
-      !help => Mostra os comandos disponíveis
-     
+      !help => Mostra os comandos disponíveis     
       `);
     } else if (comando === 'r') {
       if (dataRanking) {
@@ -84,7 +83,7 @@ const Bot = async () => {
         } else {
           await message.channel.send(`
           Infelizmente você não esta no ranking
-          busque no site: https://dota-try-hard.vercel.app/`);
+          busque no site: https://dota-try-hard.vercel.app/${info}`);
         }
       } else {
         await message.channel.send('Desculpe! DataBase esta offline');
