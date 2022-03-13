@@ -6,6 +6,7 @@ require('dotenv').config();
 const config = {
   token: process.env.TOKEN,
   prefix: process.env.PREFIX,
+  url: process.env.URL,
 };
 
 const bot = new Discord.Client({
@@ -23,16 +24,31 @@ const Bot = async () => {
 
   let dataRanking = [];
   async function pull() {
-    const { data } = await fetch('https://dota-try-hard.vercel.app/api/bot')
+    const { data } = await fetch(`${config.url}/api/bot`)
       .then((resp) => resp.json())
       .then((resp) => resp)
       .catch(() => []);
     dataRanking = data;
     return data;
   }
-  pull();
-  setInterval(pull, 20 * 60 * 1000);
-
+  await pull();
+  setInterval(pull, 30 * 60 * 1000);
+  async function auto() {
+    const players = [];
+    for (let i = 0; i < dataRanking.length; i += 1) {
+      if (dataRanking[i].matches < 20) { players.push(dataRanking[i].account_id); }
+    }
+    const result = await fetch(
+      `${config.url}/api/auto`,
+      {
+        method: 'POST',
+        body: JSON.stringify(players.slice(0, 60)),
+      },
+    );
+    console.log('result', result);
+  }
+  await auto();
+  setInterval(auto, 60 * 60 * 1000);
   bot.on('message', async (message) => {
     if (message.author.bot) return;
     if (message.channel.type === 'dm') return;
