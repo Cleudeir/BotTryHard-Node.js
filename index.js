@@ -36,7 +36,7 @@ const Bot = async () => {
   async function auto() {
     const players = [];
     for (let i = 0; i < dataRanking.length; i += 1) {
-      if (dataRanking[i].matches < 20) { players.push(dataRanking[i].account_id); }
+      if (dataRanking[i].matches < 100) { players.push(dataRanking[i].account_id); }
     }
     const result = await fetch(
       `${config.url}/api/auto`,
