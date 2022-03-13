@@ -45,7 +45,7 @@ const Bot = async () => {
         body: JSON.stringify(players.slice(0, 60)),
       },
     );
-    console.log('result', result);
+    console.log('result', result.status);
   }
   await auto();
   setInterval(auto, 60 * 60 * 1000);
