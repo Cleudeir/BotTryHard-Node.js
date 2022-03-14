@@ -22,35 +22,36 @@ const Bot = async () => {
     console.log('✔️  Bot foi iniciado');
   });
 
+  const qnt = 5;
   let dataRanking = [];
   async function pull() {
     const { data } = await fetch(`${config.url}/api/bot`)
       .then((resp) => resp.json())
       .then((resp) => resp)
       .catch(() => []);
-    dataRanking = data;
-    return data;
-  }
-  await pull();
-  setInterval(pull, 9 * 60 * 1000);
-  async function auto() {
+    dataRanking = await data;
+
     const players = [];
     console.log('Busca');
     for (let i = 0; i < dataRanking.length; i += 1) {
-      if (dataRanking[i].matches < 20) { players.push(dataRanking[i].account_id); }
+      if (dataRanking[i].matches < 50) { players.push(dataRanking[i].account_id); }
     }
+
+    const random = Math.floor(Math.random() * (players.length - qnt));
+    console.log('random', random);
     const result = await fetch(
       `${config.url}/api/auto`,
       {
         method: 'POST',
-        body: JSON.stringify(players.slice(0, 10)),
+        body: JSON.stringify(players.slice(random, random + qnt)),
       },
     );
     console.log('result', result.statusText);
-  }
-  await auto();
 
-  setInterval(auto, 10 * 60 * 1000);
+    return data;
+  }
+  await pull();
+
   bot.on('message', async (message) => {
     if (message.author.bot) return;
     if (message.channel.type === 'dm') return;
@@ -92,7 +93,7 @@ const Bot = async () => {
           Hero damage = ${playerData.hero_damage.toLocaleString('pt-BR')}
           Tower damage = ${playerData.tower_damage.toLocaleString('pt-BR')}
           Hero healing = ${playerData.hero_healing.toLocaleString('pt-BR')}   
-          Win/Loss = ${playerData.win}/${+playerData.matches - +playerData.win}
+          Win/Matches = ${playerData.win}/${+playerData.matches}
           Win rate = ${playerData.winRate}%
 
           veja o ranking completo: https://dota-try-hard.vercel.app/${playerData.account_id}
@@ -105,7 +106,6 @@ const Bot = async () => {
         }
       } else {
         await message.channel.send('Desculpe! DataBase esta offline');
-        pull();
       }
     }
   });
