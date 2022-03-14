@@ -32,23 +32,25 @@ const Bot = async () => {
     return data;
   }
   await pull();
-  setInterval(pull, 30 * 60 * 1000);
+  setInterval(pull, 9.99 * 60 * 1000);
   async function auto() {
     const players = [];
+    console.log('Busca');
     for (let i = 0; i < dataRanking.length; i += 1) {
-      if (dataRanking[i].matches < 100) { players.push(dataRanking[i].account_id); }
+      if (dataRanking[i].matches < 20) { players.push(dataRanking[i].account_id); }
     }
     const result = await fetch(
       `${config.url}/api/auto`,
       {
         method: 'POST',
-        body: JSON.stringify(players.slice(0, 60)),
+        body: JSON.stringify(players.slice(0, 10)),
       },
     );
-    console.log('result', result.status);
+    console.log('result', result.statusText);
   }
   await auto();
-  setInterval(auto, 60 * 60 * 1000);
+
+  setInterval(auto, 10 * 60 * 1000);
   bot.on('message', async (message) => {
     if (message.author.bot) return;
     if (message.channel.type === 'dm') return;
