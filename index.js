@@ -32,7 +32,7 @@ const Bot = async () => {
     return data;
   }
   await pull();
-  setInterval(pull, 9.99 * 60 * 1000);
+  setInterval(pull, 9 * 60 * 1000);
   async function auto() {
     const players = [];
     console.log('Busca');
