@@ -32,18 +32,19 @@ const Bot = async () => {
     dataRanking = await data;
 
     const players = [];
-    console.log('Busca');
+
     for (let i = 0; i < dataRanking.length; i += 1) {
       if (dataRanking[i].matches < 50) { players.push(dataRanking[i].account_id); }
     }
 
     const random = Math.floor(Math.random() * (players.length - qnt));
-    console.log('random', random);
+    const send = players.slice(random, random + qnt);
+    console.log('Busca', new Date().toLocaleTimeString('pt-BR'), send);
     const result = await fetch(
       `${config.url}/api/auto`,
       {
         method: 'POST',
-        body: JSON.stringify(players.slice(random, random + qnt)),
+        body: JSON.stringify(send),
       },
     );
     console.log('result', result.statusText);
