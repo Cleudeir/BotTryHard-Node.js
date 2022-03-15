@@ -23,16 +23,16 @@ const Bot = async () => {
     return messageCreate;
   });
 
-  const qnt = 5;
+  const qnt = 1;
   let dataRanking = [];
   async function pull() {
     const { data } = await fetch(`${config.url}/api/bot`)
       .then((resp) => resp.json())
       .then((resp) => resp)
       .catch(() => []);
-      if(data){
-        dataRanking = await data;
-      }
+    if (data) {
+      dataRanking = await data;
+    }
     const players = [];
     for (let i = 0; i < dataRanking.length; i += 1) {
       if (dataRanking[i].matches < 50) { players.push(dataRanking[i].account_id); }
@@ -53,7 +53,7 @@ const Bot = async () => {
     return data;
   }
   await pull();
-  setInterval(pull, qnt * 60 * 1000)
+  setInterval(pull, qnt * 60 * 1000);
 
   bot.on('messageCreate', async (messageCreate) => {
     if (messageCreate.author.bot) return;
