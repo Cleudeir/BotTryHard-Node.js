@@ -40,7 +40,7 @@ const Bot = async () => {
 
     const random = Math.floor(Math.random() * (players.length - qnt));
     const send = players.slice(random, random + qnt);
-    console.log('Busca', new Date().toLocaleTimeString('pt-BR'), send);
+    console.log('Busca', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }), send);
     const result = await fetch(
       `${config.url}/api/auto`,
       {
