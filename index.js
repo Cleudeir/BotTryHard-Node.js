@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 const fetch = (...args) => import('node-fetch')
   .then(({ default: fetch }) => fetch(...args));
 const Discord = require('discord.js'); // start
@@ -23,37 +24,36 @@ const Bot = async () => {
     return messageCreate;
   });
 
-  const qnt = 1;
+  function sleep(ms) {
+    return new Promise(
+      (resolve) => setTimeout(resolve, ms),
+    );
+  }
+
   let dataRanking = [];
   async function pull() {
-    const { data } = await fetch(`${config.url}/api/bot`)
-      .then((resp) => resp.json())
-      .then((resp) => resp)
-      .catch(() => []);
+    const { data } = await fetch(`${config.url}/api/bot`).then((data) => data.json());
     if (data) {
       dataRanking = await data;
     }
+
     const players = [];
     for (let i = 0; i < dataRanking.length; i += 1) {
       if (dataRanking[i].matches < 50) { players.push(dataRanking[i].account_id); }
     }
 
-    const random = Math.floor(Math.random() * (players.length - qnt));
-    const send = players.slice(random, random + qnt);
-    console.log('Busca', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }), send);
-    const result = await fetch(
-      `${config.url}/api/auto`,
-      {
-        method: 'POST',
-        body: JSON.stringify(send),
-      },
-    );
-    console.log('result', result.statusText);
-
-    return data;
+    for (let n = 0; n < players.length; n += 1) {
+      console.log(n, players.length);
+      sleep(200)
+      const send = players[n];
+      console.log('Busca', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }), send);
+      const result = await fetch(`${config.url}/api/auto/${send}`);
+      console.log('result', result);
+    }
   }
   await pull();
-  setInterval(pull, qnt * 60 * 1000);
+
+  setInterval(pull, 60 * 60 * 1000);
 
   bot.on('messageCreate', async (messageCreate) => {
     if (messageCreate.author.bot) return;
