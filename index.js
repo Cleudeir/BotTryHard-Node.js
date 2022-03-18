@@ -1,3 +1,4 @@
+/* eslint-disable no-promise-executor-return */
 /* eslint-disable no-await-in-loop */
 const fetch = (...args) => import('node-fetch')
   .then(({ default: fetch }) => fetch(...args));
@@ -39,12 +40,12 @@ const Bot = async () => {
 
     const players = [];
     for (let i = 0; i < dataRanking.length; i += 1) {
-      if (dataRanking[i].matches < 50) { players.push(dataRanking[i].account_id); }
+      players.push(dataRanking[i].account_id);
     }
 
     for (let n = 0; n < players.length; n += 1) {
       console.log(n, players.length);
-      sleep(200)
+      sleep(1000);
       const send = players[n];
       console.log('Busca', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }), send);
       const result = await fetch(`${config.url}/api/auto/${send}`);
