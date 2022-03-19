@@ -33,6 +33,7 @@ const Bot = async () => {
 
   let dataRanking = [];
   async function pull() {
+    console.log('start Pull')
     const { data } = await fetch(`${config.url}/api/bot`).then((data) => data.json());
     if (data) {
       dataRanking = await data;
