@@ -33,7 +33,7 @@ const Bot = async () => {
 
   let dataRanking = [];
   async function pull() {
-    console.log('start Pull')
+    console.log('start Pull');
     const { data } = await fetch(`${config.url}/api/bot`).then((data) => data.json());
     if (data) {
       dataRanking = await data;
@@ -46,7 +46,7 @@ const Bot = async () => {
 
     for (let n = 0; n < players.length; n += 1) {
       console.log(n, players.length);
-      await sleep(60 * 1000);
+      await sleep(2 * 60 * 1000);
       const send = players[n];
       console.log('Busca', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }), send);
       const result = await fetch(`${config.url}/api/auto/${send}`);
