@@ -46,7 +46,7 @@ const Bot = async () => {
 
     for (let n = 0; n < players.length; n += 1) {
       console.log(n, players.length);
-      await sleep(5 * 60 * 1000);
+      await sleep(10 * 60 * 1000);
       const send = players[n];
       console.log('Busca', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }), send);
       const result = await fetch(`${config.url}/api/auto/${send}`);
@@ -55,7 +55,7 @@ const Bot = async () => {
   }
   await pull();
 
-  setInterval(pull, 60 * 60 * 1000);
+  setInterval(pull, 240 * 60 * 1000);
 
   bot.on('messageCreate', async (messageCreate) => {
     if (messageCreate.author.bot) return;
@@ -108,6 +108,7 @@ const Bot = async () => {
         }
       } else {
         await messageCreate.channel.send('Desculpe! DataBase esta offline');
+        pull();
       }
     }
   });
