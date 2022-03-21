@@ -45,7 +45,7 @@ const Bot = async () => {
     }
 
     for (let n = 0; n < players.length; n += 1) {
-      console.log(n, players.length);
+      console.log(`${n}/${players.length}`);
       await sleep(5 * 60 * 1000);
       const send = players[n];
       console.log('Busca', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }), send);
