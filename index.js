@@ -41,11 +41,11 @@ const Bot = async () => {
 
     const players = [];
     for (let i = 0; i < dataRanking.length; i += 1) {
-      if (dataRanking.matches < 10) { players.push(dataRanking[i].account_id); }
+      if (dataRanking[i].matches < 10) { players.push(dataRanking[i].account_id); }
     }
 
     for (let n = 0; n < players.length; n += 1) {
-      console.log(`${n}/${players.length}`);
+      console.log(`${n + 1}/${players.length}`);
       await sleep(5 * 60 * 1000);
       const send = players[n];
       console.log('Busca', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }), send);
