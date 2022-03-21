@@ -41,12 +41,12 @@ const Bot = async () => {
 
     const players = [];
     for (let i = 0; i < dataRanking.length; i += 1) {
-      players.push(dataRanking[i].account_id);
+      if (dataRanking.matches < 10) { players.push(dataRanking[i].account_id); }
     }
 
     for (let n = 0; n < players.length; n += 1) {
       console.log(n, players.length);
-      await sleep(10 * 60 * 1000);
+      await sleep(5 * 60 * 1000);
       const send = players[n];
       console.log('Busca', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }), send);
       const result = await fetch(`${config.url}/api/auto/${send}`);
@@ -55,7 +55,7 @@ const Bot = async () => {
   }
   await pull();
 
-  setInterval(pull, 240 * 60 * 1000);
+  setInterval(pull, 60 * 60 * 1000);
 
   bot.on('messageCreate', async (messageCreate) => {
     if (messageCreate.author.bot) return;
