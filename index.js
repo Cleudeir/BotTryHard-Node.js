@@ -98,13 +98,13 @@ const Bot = async () => {
           Win/Matches = ${playerData.win}/${+playerData.matches}
           Win rate = ${playerData.winRate}%
 
-          veja o ranking completo: https://dota-try-hard.vercel.app/${playerData.account_id}
+          veja o ranking completo: https://dota-try-hard.vercel.app/0/${playerData.account_id}
           `,
           );
         } else {
           await messageCreate.channel.send(`
           Infelizmente você não esta no ranking
-          busque no site: https://dota-try-hard.vercel.app/${info}`);
+          busque no site: https://dota-try-hard.vercel.app/0/${info}`);
         }
       } else {
         await messageCreate.channel.send('Desculpe! DataBase esta offline');
