@@ -40,7 +40,7 @@ const Bot = async () => {
     for (let n = 0; n < players.length; n += 1) {
       console.log(`${n + 1}/${players.length}`);
       console.log('Busca:', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
-      await sleep(5 * 60 * 1000);
+      await sleep(10 * 60 * 1000);
       const send = players[n];
 
       const result = await fetch(`${config.url}/api/auto/${send}`);
