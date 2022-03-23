@@ -94,7 +94,7 @@ const Bot = async () => {
           });
           await messageCreate.channel.send(
             `Aqui esta  ${playerData.personaname}:
-          ➡️ Position: ${playerData.id} de ${dataRanking.length}
+          ➡️ Position: ${playerData.id} de ${dataRanking.length} in the world!
           Rating : ${playerData.ranking.toLocaleString('pt-BR')}  
           Kill/Deaths/Assists = ${playerData.kills}/${playerData.deaths}/${playerData.assists}
           Last/Denies = ${playerData.last_hits}/${playerData.denies}
