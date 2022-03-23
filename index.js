@@ -31,10 +31,10 @@ const Bot = async () => {
     );
   }
 
-  async function request(dataRanking) {
+  async function request(data) {
     const players = [];
-    for (let i = 0; i < dataRanking.length; i += 1) {
-      if (dataRanking[i].matches < 10) { players.push(dataRanking[i].account_id); }
+    for (let i = 0; i < data.length; i += 1) {
+      if (data[i].matches < 10) { players.push(data[i].account_id); }
     }
 
     for (let n = 0; n < players.length; n += 1) {
@@ -51,12 +51,16 @@ const Bot = async () => {
   let dataRanking = [];
   async function pull() {
     console.log('start Pull');
-    const { data } = await fetch(`${config.url}/api/bot`).then((data) => data.json());
+    const { data } = await fetch(`${config.url}/api/bot/0/10`).then((data) => data.json());
     if (data) {
       dataRanking = await data;
     }
-    request(dataRanking);
+    const auto = await fetch(`${config.url}/api/bot/1/1`).then((data) => data.json());
+    if (auto) {
+      request(auto.data);
+    }
   }
+  
 
   await pull();
   setInterval(pull, 60 * 60 * 1000);
