@@ -31,14 +31,7 @@ const Bot = async () => {
     );
   }
 
-  let dataRanking = [];
-  async function pull() {
-    console.log('start Pull');
-    const { data } = await fetch(`${config.url}/api/bot`).then((data) => data.json());
-    if (data) {
-      dataRanking = await data;
-    }
-
+  async function request(dataRanking) {
     const players = [];
     for (let i = 0; i < dataRanking.length; i += 1) {
       if (dataRanking[i].matches < 10) { players.push(dataRanking[i].account_id); }
@@ -46,15 +39,26 @@ const Bot = async () => {
 
     for (let n = 0; n < players.length; n += 1) {
       console.log(`${n + 1}/${players.length}`);
+      console.log('Busca:', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
       await sleep(30 * 60 * 1000);
       const send = players[n];
-      console.log('Busca', new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }), send);
+
       const result = await fetch(`${config.url}/api/auto/${send}`);
       console.log('result', result);
     }
   }
-  await pull();
 
+  let dataRanking = [];
+  async function pull() {
+    console.log('start Pull');
+    const { data } = await fetch(`${config.url}/api/bot`).then((data) => data.json());
+    if (data) {
+      dataRanking = await data;
+    }
+    request(dataRanking);
+  }
+
+  await pull();
   setInterval(pull, 60 * 60 * 1000);
 
   bot.on('messageCreate', async (messageCreate) => {
