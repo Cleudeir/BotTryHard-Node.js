@@ -57,7 +57,7 @@ const Bot = async () => {
 		if (data) {
 			dataRanking = await data;
 		}
-
+		
 		const auto = await fetch(`${config.url}/api/bot/1/1`).then(data => data.json());
 		if (auto) {
 			request(auto.data);
@@ -65,7 +65,7 @@ const Bot = async () => {
 	}
 
 	await pull();
-	setInterval(pull, 60 * 60 * 1000);
+	setInterval(pull, 24 *  60 * 60 * 1000);
 
 	bot.on('messageCreate', async messageCreate => {
 		if (messageCreate.author.bot) {
