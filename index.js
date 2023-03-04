@@ -65,7 +65,7 @@ const _bot = async () => {
 		} else if (comando === "r") {
 			let userData;
 			console.log('id: ', Number(info), typeof Number(info) === 'number');
-			if (info && Number(info) === NaN && typeof Number(info) === 'number') {
+			if (info && !isNaN(Number(info))) {
 				const filter = data.filter((_user) => _user.profile.account_id === Number(info));
 				if (filter.length > 0) {
 					userData = filter[0];
