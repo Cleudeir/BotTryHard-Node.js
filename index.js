@@ -50,29 +50,25 @@ const _bot = async () => {
 			.slice(config.prefix.length)
 			.trim()
 			.split(/ +/g);
-		const [comando, info] = args.shift().toLowerCase().split("=");
-
-		// Comando ping
-		if (comando === "hello" || comando === "h") {
-			await messageCreate.channel.send("Hello world!");
-		} else if (comando === "help" || comando === "?") {
+		const command = args.shift().toLowerCase();
+		console.log(command)
+	if (command === "help") {
 			await messageCreate.channel.send(`\n
       Commands:
-	  !h = > Hello world
-      !r=account_id => Verifica seu ranked e seu status médio
-      !help => Mostra os comandos disponíveis
+      !account_id or !nickName : Verifica seu ranked e seu status médio
+      !help : Mostra os comandos disponíveis
       `);
-		} else if (comando === "r") {
+		} else {
 			let userData;
-			console.log('id: ', Number(info), typeof Number(info) === 'number');
-			if (info && !isNaN(Number(info))) {
-				const filter = data.filter((_user) => _user.profile.account_id === Number(info));
+			console.log('id: ', Number(command), typeof Number(command) === 'number');
+			if (command && !isNaN(Number(command))) {
+				const filter = data.filter((_user) => _user.profile.account_id === Number(command));
 				if (filter.length > 0) {
 					userData = filter[0];
 				}
 				console.log(userData);
-			} else if (info && info.length > 0) {
-				const filter = data.filter((_user) => _user.profile.personaname.toLowerCase().includes(info.toLowerCase()));
+			} else if (command && command.length > 0) {
+				const filter = data.filter((_user) => _user.profile.personaname.toLowerCase().includes(command.toLowerCase()));
 				if (filter.length > 0) {
 					userData = filter[0];
 				}
@@ -118,7 +114,7 @@ const _bot = async () => {
 			}
 
 			await messageCreate.channel.send(
-				`Obrigado! <@${messageCreate.author.id}>`
+				`<@${messageCreate.author.id}>`
 			);
 		}
 	});
