@@ -107,15 +107,22 @@ const _bot = async () => {
 		`
 				);
 			} else {
-				await messageCreate.channel.send(`
-			Infelizmente você não foi encontrado, tente novamente
-			ou busque no site:
-			https://dotatryhard.vercel.app/.`);
-			}
+				await messageCreate.channel.send(` 
+			Infelizmente você não foi encontrado, tente reescrever de forma similar ao seu nick no Dota ou
+			Verifique se seu perfil está publico:
+			☼   Torne seu perfil da Steam público
+			Para que suas estatísticas sejam contabilizadas automaticamente nas classificações do Dota 2, você precisa garantir que seu perfil da Steam esteja definido como "público".
+			Primeiro, abra a Steam ou vá para steamcommunity.com e vá para "ver meu perfil".
+			Em seguida, encontre o botão "Editar perfil".
+			Em seguida, clique em "Configurações de privacidade" no menu lateral esquerdo da sua página de perfil.
+			Uma vez lá, basta alterar sua opção "Meu perfil" para público.
+			☼   Exponha os dados públicos de partida no Dota 2
+			Depois de concluir esta etapa, você deve expor seus dados públicos de partida dentro do jogo.
+			Abra o Dota 2, navegando até as configurações, depois navegando até a guia "Social" onde você encontrará a opição "Expor Partidas Públicas" e certifique-se de que
+			a caixa esteja marcada.			
+			`);
 
-			await messageCreate.channel.send(
-				`<@${messageCreate.author.id}>`
-			);
+			}
 		}
 	});
 };
