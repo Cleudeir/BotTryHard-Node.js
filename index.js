@@ -21,7 +21,7 @@ const _bot = async () => {
 		bot.user.setActivity("Dota2");
 		setInterval(getData, 7 * 60 * 60 * 1000);
 		async function getData() {
-			const req2 = await fetch(`${process.env.URL}/ranking?limit=2000`);
+			const req2 = await fetch(`${process.env.URL}/ranking?limit=3000`);
 			const json = await req2.json();
 			data = json.data;
 			avgGlobal = json.avgGlobal;
