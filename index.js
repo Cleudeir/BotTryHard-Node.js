@@ -21,7 +21,7 @@ const _bot = async () => {
 		bot.user.setActivity("Dota2");
 		setInterval(getData, 7 * 60 * 60 * 1000);
 		async function getData() {
-			const req2 = await fetch(`${process.env.URL}/ranking?limit=3000`);
+			const req2 = await fetch(`${process.env.URL}/ranking?limit=2500`);
 			const json = await req2.json();
 			data = json.data;
 			avgGlobal = json.avgGlobal;
@@ -96,8 +96,8 @@ const _bot = async () => {
 				});
 				await messageCreate.channel.send(
 					`Aqui esta ${userData.profile.personaname}:
-	Pos: ${userData.pos} de ${data.length} | Ranking Rating : ${userData.rankingRate
-					}   
+	\`\`\`
+	Pos: ${userData.pos} de ${data.length} | Ranking Rating : ${userData.rankingRate}   
 	Kill | Deaths | Assists = ${userData.kills} | ${userData.deaths} | ${userData.assists}
 	Last | Denies = ${userData.last_hits} | ${userData.denies}
 	GPM = ${Math.floor(userData.gold_per_min)}
@@ -107,9 +107,8 @@ const _bot = async () => {
 	Hero healing = ${Math.floor(userData.hero_healing)}   
 	Win | Matches = ${userData.win} | ${Number(userData.matches)}
 	Win rate = ${userData.winRate}%
-	kiter rate = ${Math.floor((userData.leaver_status / userData.matches) * 100 * 100) / 100
-					}%
-
+	kiter rate = ${Math.floor((userData.leaver_status / userData.matches) * 100 * 100) / 100}%
+	\`\`\`
 	Veja o suas partidas recentes :
 	https://dotatryhard.vercel.app/matches/${userData.profile.account_id},
 	Veja o sua Win Rate com seu amigos e inimigos :
