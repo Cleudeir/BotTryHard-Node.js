@@ -33,6 +33,7 @@ const _bot = async () => {
 	});
 
 	bot.on("messageCreate", async (messageCreate) => {
+		if(!data || !avgGlobal) return
 		console.log(messageCreate.author.username);
 		if (messageCreate.author.bot) {
 			return;
@@ -95,19 +96,23 @@ const _bot = async () => {
 					files: [img],
 				});
 				await messageCreate.channel.send(
-					`Aqui esta ${userData.profile.personaname}:
-	\`\`\`
-	Pos: ${userData.pos} de ${data.length} | Ranking Rating : ${userData.rankingRate}   
-	Kill | Deaths | Assists = ${userData.kills} | ${userData.deaths} | ${userData.assists}
-	Last | Denies = ${userData.last_hits} | ${userData.denies}
-	GPM = ${Math.floor(userData.gold_per_min)}
-	XPM = ${Math.floor(userData.xp_per_min)}
-	Hero damage = ${Math.floor(userData.hero_damage)}
-	Tower damage = ${Math.floor(userData.tower_damage)}
-	Hero healing = ${Math.floor(userData.hero_healing)}   
-	Win | Matches = ${userData.win} | ${Number(userData.matches)}
-	Win rate = ${userData.winRate}%
-	kiter rate = ${Math.floor((userData.leaver_status / userData.matches) * 100 * 100) / 100}%
+					`.
+	Aqui esta ${userData.profile.personaname}
+	Posição : ${userData.pos} de ${data.length}
+	\`\`\` 
+	Ranking Rating : ${userData.rankingRate}
+
+	Kill | Deaths | Assists | Last  | Denies
+	${userData.kills} |  ${userData.deaths}  |  ${userData.assists}  | ${userData.last_hits} | ${userData.denies}
+	
+	GPM | XPM | Hero damage | Tower damage
+	${Math.floor(userData.gold_per_min)} | ${Math.floor(userData.xp_per_min)} |   ${Math.floor(userData.hero_damage)}     |    ${Math.floor(userData.tower_damage)}
+
+	Hero healing | Win | Matches
+	    ${Math.floor(userData.hero_healing)}     | ${userData.win} | ${Number(userData.matches)}	
+	
+	Win rate | kiter rate
+	${userData.winRate}%   | ${Math.floor((userData.leaver_status / userData.matches) * 100 * 100) / 100}%
 	\`\`\`
 	Veja o suas partidas recentes :
 	https://dotatryhard.vercel.app/matches/${userData.profile.account_id},
@@ -117,20 +122,26 @@ const _bot = async () => {
 		`
 				);
 			} else {
-				await messageCreate.channel.send(` 
-			Infelizmente você não foi encontrado, tente reescrever de forma similar ao seu nick no Dota ou
-			Verifique se seu perfil está publico:
-			☼   Torne seu perfil da Steam público
-			Para que suas estatísticas sejam contabilizadas automaticamente nas classificações do Dota 2, você precisa garantir que seu perfil da Steam esteja definido como "público".
-			Primeiro, abra a Steam ou vá para steamcommunity.com e vá para "ver meu perfil".
-			Em seguida, encontre o botão "Editar perfil".
-			Em seguida, clique em "Configurações de privacidade" no menu lateral esquerdo da sua página de perfil.
-			Uma vez lá, basta alterar sua opção "Meu perfil" para público.
-			☼   Exponha os dados públicos de partida no Dota 2
-			Depois de concluir esta etapa, você deve expor seus dados públicos de partida dentro do jogo.
-			Abra o Dota 2, navegando até as configurações, depois navegando até a guia "Social" onde você encontrará a opição "Expor Partidas Públicas" e certifique-se de que
-			a caixa esteja marcada.			
-			`);
+				await messageCreate.channel.send(`Infelizmente você não foi encontrado.
+	☼ Reescrever de forma similar ao seu nick no Dota.
+	☼ Verifique se seu perfil está publico:
+\`\`\` 
+☼ Torne seu perfil da Steam público
+
+Para que suas estatísticas sejam contabilizadas automaticamente nas classificações do Dota 2,
+você precisa garantir que seu perfil da Steam esteja definido como "público".
+Primeiro, abra a Steam ou vá para steamcommunity.com e vá para "ver meu perfil".
+Em seguida, encontre o botão "Editar perfil".
+Em seguida, clique em "Configurações de privacidade" no menu lateral esquerdo da sua página de perfil.
+Uma vez lá, basta alterar sua opção "Meu perfil" para público.
+
+☼ Exponha os dados públicos de partida no Dota 2
+
+Depois de concluir esta etapa, você deve expor seus dados públicos de partida dentro do jogo.
+Abra o Dota 2, navegando até as configurações,
+depois navegando até a guia "Social" onde você encontrará a opição "Expor Partidas Públicas" e 
+certifique-se de que a caixa esteja marcada.
+\`\`\``);
 
 			}
 		}
