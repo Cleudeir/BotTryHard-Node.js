@@ -69,8 +69,19 @@ const _bot = async () => {
 				console.log(userData);
 			} else if (command && command.length > 0) {
 				const filter = data.filter((_user) => _user.profile.personaname.toLowerCase().includes(command.toLowerCase()));
-				if (filter.length > 0) {
-					userData = filter[0];
+				const sort = filter.sort((a, b) => {
+					const fa = a.profile.personaname.length;
+					const fb = b.profile.personaname.length;
+					if (fa < fb) {
+					  return -1;
+					}
+					if (fa > fb) {
+					  return 1;
+					}
+					return 0;
+				  });
+				if (sort.length > 0) {
+					userData = sort[0];
 				}
 				console.log(userData);
 			}
