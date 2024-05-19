@@ -6,7 +6,7 @@ services:
     restart: always
     environment:      
       - TOKEN=${TOKEN}
-      - PREFIX=#{PREFIX}
+      - PREFIX=${PREFIX}
       - URL=${URL}   
     env_file:
       - .env
