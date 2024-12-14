@@ -1,8 +1,8 @@
 
-                # docker-compose.yml                
-                ## project structure
-                ```                    
-                dotatryhard_discord/
+# docker-compose.yml                
+## project structure
+```                    
+dotatryhard_discord/
     package-lock.json
     README.md
     Dockerfile
@@ -11,8 +11,8 @@
     package.json
     yarn.lock
     docker-compose.yml                
-                ```
-                ## Sumário do Projeto: Bot Discord Dota 2
+```
+## Sumário do Projeto: Bot Discord Dota 2
 
 **Nome do Projeto:** bot
 
